@@ -1,4 +1,5 @@
 import 'package:covid_19_app/screens/home_screen/home_screen.dart';
+import 'package:covid_19_app/screens/profile_screen/profile_screen.dart';
 import '../screens/statistics_screen/statistics_screen.dart';
 import 'package:covid_19_app/shared/colors.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 List<Widget>screens = [
   HomeScreen(),
   StatisticsScreen(),
+  ProfileScreen(),
 ];
 
 Map<String, double> dataMap = {

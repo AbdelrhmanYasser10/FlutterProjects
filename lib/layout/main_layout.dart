@@ -45,7 +45,7 @@ class _MainLayoutState extends State<MainLayout> {
         ],
       ),
       appBar: AppBar(
-        backgroundColor: mainColor,
+        backgroundColor: widget.index==2?primaryColor:mainColor,
         actions: [
           IconButton(
             onPressed: (){},
