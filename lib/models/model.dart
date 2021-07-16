@@ -1,10 +1,28 @@
 import 'package:covid_19_app/screens/home_screen/home_screen.dart';
+import '../screens/statistics_screen/statistics_screen.dart';
+import 'package:covid_19_app/shared/colors.dart';
 import 'package:flutter/material.dart';
 
 List<Widget>screens = [
   HomeScreen(),
+  StatisticsScreen(),
 ];
 
+Map<String, double> dataMap = {
+  "Affected": 336851,
+  "Death": 9620,
+  "Recovered": 17977,
+  "Active": 301251,
+  "Serious":8702
+};
+
+List<Color>colorsList=[
+  warningColor,
+  dangerColor,
+  successColor,
+  infoColor,
+  primaryColor,
+];
 
 List<String> imgUrls=[
   "https://image.flaticon.com/icons/png/512/3107/3107654.png",

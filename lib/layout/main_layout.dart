@@ -25,21 +25,21 @@ class _MainLayoutState extends State<MainLayout> {
             label: "",
             icon:Icon(
               Icons.home_filled,
-              color: mainColor,
+              color: widget.index == 0 ? mainColor : Colors.blueGrey,
             ),
           ),
           BottomNavigationBarItem(
             label: "",
             icon:Icon(
               Icons.stacked_bar_chart,
-              color: Colors.blueGrey,
+              color: widget.index == 1 ? mainColor : Colors.blueGrey,
             ),
           ),
           BottomNavigationBarItem(
             label: "",
             icon:Icon(
               Icons.person,
-              color: Colors.blueGrey,
+              color: widget.index == 2 ? mainColor : Colors.blueGrey,
             ),
           ),
         ],
