@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/screens/add_posts/add_posts.dart';
 import 'package:social_app/shared/components/components.dart';
 import 'package:social_app/shared/styles/icon_broken.dart';
 import 'cubit/cubit.dart';
@@ -15,8 +16,7 @@ class SocialLayout extends StatelessWidget {
         if (state is SocialNewPostState) {
           navigateTo(
             context,
-            //NewPostScreen(),
-            Container(),
+            AddPosts(),
           );
         }
       },
@@ -32,13 +32,13 @@ class SocialLayout extends StatelessWidget {
             actions: [
               IconButton(
                 icon: Icon(
-                  Icons.notifications_none,
+                  IconBroken.Notification,
                 ),
                 onPressed: () {},
               ),
               IconButton(
                 icon: Icon(
-                  Icons.search,
+                  IconBroken.Search,
                 ),
                 onPressed: () {},
               ),
@@ -54,31 +54,31 @@ class SocialLayout extends StatelessWidget {
             items: [
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.home,
+                  IconBroken.Home,
                 ),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.message,
+                  IconBroken.Chat,
                 ),
                 label: 'Chats',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.add_box_rounded,
+                  IconBroken.Paper_Upload,
                 ),
                 label: 'Post',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.supervised_user_circle,
+                  IconBroken.Location,
                 ),
                 label: 'Users',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.settings,
+                  IconBroken.Setting,
                 ),
                 label: 'Settings',
               ),

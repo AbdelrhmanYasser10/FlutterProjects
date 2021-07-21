@@ -52,7 +52,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
       phone: phone!,
       uId: uId!,
       bio: 'write you bio ...',
-      cover: 'https://image.freepik.com/free-photo/photo-attractive-bearded-young-man-with-cherful-expression-makes-okay-gesture-with-both-hands-likes-something-dressed-red-casual-t-shirt-poses-against-white-wall-gestures-indoor_273609-16239.jpg',
+      cover: 'https://uploads-ssl.webflow.com/5d815dacb45c9150dc1aca1d/5e6eb2450f8bc355d2b9d2e9_42%20A.jpg',
       image: 'https://image.freepik.com/free-photo/photo-attractive-bearded-young-man-with-cherful-expression-makes-okay-gesture-with-both-hands-likes-something-dressed-red-casual-t-shirt-poses-against-white-wall-gestures-indoor_273609-16239.jpg',
       isEmailVerified: false,
     );

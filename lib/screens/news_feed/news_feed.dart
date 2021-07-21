@@ -217,7 +217,7 @@ class NewsFeedScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Icon(
-                              Icons.favorite,
+                              IconBroken.Heart,
                               size: 16.0,
                               color: Colors.red,
                             ),
@@ -244,7 +244,7 @@ class NewsFeedScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Icon(
-                              Icons.message_outlined,
+                              IconBroken.Chat,
                               size: 16.0,
                               color: Colors.amber,
                             ),
@@ -303,7 +303,7 @@ class NewsFeedScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Icon(
-                        Icons.favorite_outline_outlined,
+                        IconBroken.Heart,
                         size: 16.0,
                         color: Colors.red,
                       ),

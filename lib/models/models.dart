@@ -24,6 +24,10 @@ class SocialUserModel{
      phone = json['phone'];
      uId = json['uId'];
      name = json['name'];
+     cover = json['cover'];
+     image = json['image'];
+     bio = json['bio'];
+     isEmailVerified = json['isEmailVerified'];
    }
    Map<String,dynamic> toMap(){
 
@@ -32,6 +36,10 @@ class SocialUserModel{
        "uId":uId,
        "email":email,
        "phone":phone,
+       "image":image,
+       "cover":cover,
+       "bio":bio,
+       "isEmailVerified":isEmailVerified,
      };
    }
 

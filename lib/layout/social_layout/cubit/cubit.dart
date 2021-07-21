@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/layout/social_layout/cubit/states.dart';
 import 'package:social_app/models/models.dart';
+import 'package:social_app/screens/add_posts/add_posts.dart';
+import 'package:social_app/screens/chats_screen/chats_screen.dart';
 import 'package:social_app/screens/news_feed/news_feed.dart';
+import 'package:social_app/screens/settings_screen/settings_screen.dart';
+import 'package:social_app/screens/users/users_screen.dart';
 import 'package:social_app/shared/components/constants.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
@@ -11,7 +15,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   static SocialCubit get(context) => BlocProvider.of(context);
 
-  SocialUserModel? model;
+  late SocialUserModel model;
 
   void getUserData()
   {
@@ -38,11 +42,10 @@ class SocialCubit extends Cubit<SocialStates> {
   List<Widget> screens =
   [
     NewsFeedScreen(),
-    /*
-    ChatsScreen(),
-    NewPostScreen(),
-    UsersScreen(),
-    SettingsScreen(),*/
+    ChatScreen(),
+    AddPosts(),
+    UserScreen(),
+    SettingsScreen(),
   ];
 
   List<String> titles =
