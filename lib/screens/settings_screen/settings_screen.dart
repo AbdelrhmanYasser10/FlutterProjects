@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/layout/social_layout/cubit/cubit.dart';
 import 'package:social_app/layout/social_layout/cubit/states.dart';
 import 'package:social_app/shared/components/components.dart';
+import 'package:social_app/shared/styles/icon_broken.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -27,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: NetworkImage(
-                                  "${userModel.cover}"),
+                                  "${userModel!.cover}"),
                               fit: BoxFit.cover
                           ),
                           borderRadius: BorderRadius.only(
@@ -78,17 +79,18 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: InkWell(
+                        onTap: (){},
                         child: Column(
                           children: [
                             Text(
-                              "100",
+                              "10k",
                               style: Theme
                                   .of(context)
                                   .textTheme
                                   .subtitle2,
                             ),
                             Text(
-                              "Posts",
+                              "Followers",
                               style: Theme
                                   .of(context)
                                   .textTheme
@@ -100,17 +102,18 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: InkWell(
+                        onTap: (){},
                         child: Column(
                           children: [
                             Text(
-                              "100",
+                              "64",
                               style: Theme
                                   .of(context)
                                   .textTheme
                                   .subtitle2,
                             ),
                             Text(
-                              "Posts",
+                              "Following",
                               style: Theme
                                   .of(context)
                                   .textTheme
@@ -122,17 +125,18 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: InkWell(
+                        onTap: (){},
                         child: Column(
                           children: [
                             Text(
-                              "100",
+                              "800",
                               style: Theme
                                   .of(context)
                                   .textTheme
                                   .subtitle2,
                             ),
                             Text(
-                              "Posts",
+                              "Photos",
                               style: Theme
                                   .of(context)
                                   .textTheme
@@ -144,6 +148,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: InkWell(
+                        onTap: (){},
                         child: Column(
                           children: [
                             Text(
@@ -169,8 +174,24 @@ class SettingsScreen extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Expanded(child: defaultButton(
-                      function: () {}, text: "Edit Profile"))
+                  Expanded(
+                      child:OutlinedButton(
+                        onPressed: (){},
+                        child: Text(
+                          'Add Photos'
+                        ),
+                      )
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  OutlinedButton(
+                    onPressed: (){},
+                    child: Icon(
+                      IconBroken.Edit,
+                      size: 16.0,
+                    ),
+                  )
                 ],
               ),
             ],

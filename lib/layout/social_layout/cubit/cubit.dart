@@ -15,7 +15,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   static SocialCubit get(context) => BlocProvider.of(context);
 
-  late SocialUserModel model;
+  SocialUserModel? model;
 
   void getUserData()
   {
