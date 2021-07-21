@@ -1,62 +1,76 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/layout/social_layout/cubit/cubit.dart';
+import 'package:social_app/layout/social_layout/cubit/states.dart';
 import 'package:social_app/shared/styles/colors.dart';
 import 'package:social_app/shared/styles/icon_broken.dart';
 
 class NewsFeedScreen extends StatelessWidget {
   @override
     Widget build(BuildContext context) {
-      return SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            Card(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              elevation: 5.0,
-              margin: EdgeInsets.all(
-                8.0,
-              ),
-              child: Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                  Image(
-                    image: NetworkImage(
-                      'https://img.freepik.com/free-photo/portrait-happy-contented-satisfied-attractive-man-denim-trendy-shirt-showing-with-his-index-finger-top-right-cornerxt_295783-1217.jpg?size=626&ext=jpg&ga=GA1.2.680866075.1626480000',
-                    ),
-                    fit: BoxFit.cover,
-                    height: 200.0,
-                    width: double.infinity,
+      return BlocConsumer<SocialCubit,SocialStates>(
+        listener: (context,states){},
+        builder:(context,states) {
+          var userModel = SocialCubit.get(context).model;
+          return SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                Card(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  elevation: 5.0,
+                  margin: EdgeInsets.all(
+                    8.0,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'communicate with friends',
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                        color: Colors.white,
+                  child: Stack(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    children: [
+                      Image(
+                        image: NetworkImage(
+                          'https://img.freepik.com/free-photo/portrait-happy-contented-satisfied-attractive-man-denim-trendy-shirt-showing-with-his-index-finger-top-right-cornerxt_295783-1217.jpg?size=626&ext=jpg&ga=GA1.2.680866075.1626480000',
+                        ),
+                        fit: BoxFit.cover,
+                        height: 200.0,
+                        width: double.infinity,
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'communicate with friends',
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => buildPostItem(context , userModel),
+                  separatorBuilder: (context, index) =>
+                      SizedBox(
+                        height: 8.0,
+                      ),
+                  itemCount: 10,
+                ),
+                SizedBox(
+                  height: 8.0,
+                ),
+              ],
             ),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => buildPostItem(context),
-              separatorBuilder: (context, index) => SizedBox(
-                height: 8.0,
-              ),
-              itemCount: 10,
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-          ],
-        ),
+          );
+        }
       );
     }
 
-    Widget buildPostItem(context) => Card(
+    Widget buildPostItem(context , userModel) => Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 5.0,
       margin: EdgeInsets.symmetric(
@@ -71,7 +85,7 @@ class NewsFeedScreen extends StatelessWidget {
                 CircleAvatar(
                   radius: 25.0,
                   backgroundImage: NetworkImage(
-                    'https://img.freepik.com/free-photo/portrait-happy-contented-satisfied-attractive-man-denim-trendy-shirt-showing-with-his-index-finger-top-right-cornerxt_295783-1217.jpg?size=626&ext=jpg&ga=GA1.2.680866075.1626480000',
+                    '${userModel.image}',
                   ),
                 ),
                 SizedBox(
@@ -84,7 +98,7 @@ class NewsFeedScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Abdelrahman Yasser',
+                            '${userModel.name}',
                             style: TextStyle(
                               height: 1.4,
                             ),
