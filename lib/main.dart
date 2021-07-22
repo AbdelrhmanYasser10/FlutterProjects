@@ -11,7 +11,7 @@ import 'package:social_app/shared/styles/themes.dart';
 import 'layout/social_layout/cubit/cubit.dart';
 import 'layout/social_layout/social_layout.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
@@ -21,18 +21,15 @@ void main() async{
 
   late Widget widget;
 
-
   uId = CacheHelper.getData(key: 'uId');
 
-  if(uId != null)
-  {
+  if (uId != null) {
     widget = SocialLayout();
-  } else
-  {
+  } else {
     widget = LoginScreen();
   }
 
-  if(isDark == null){
+  if (isDark == null) {
     isDark = false;
   }
 
@@ -55,8 +52,7 @@ class MyApp extends StatelessWidget {
     required this.startWidget,
   });
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -66,7 +62,9 @@ class MyApp extends StatelessWidget {
             ),
         ),
         BlocProvider(
-          create: (BuildContext context) => SocialCubit()..getUserData(),
+          create: (BuildContext context) => SocialCubit()
+            ..getUserData()
+            ..getPosts(),
         ),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
@@ -76,7 +74,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: lightTheme,
             darkTheme: darkTheme,
-            themeMode: /*AppCubit.get(context).isDark ? ThemeMode.dark : */ThemeMode.light,
+            themeMode: /*AppCubit.get(context).isDark ? ThemeMode.dark : */ ThemeMode
+                .light,
             home: startWidget,
           );
         },
