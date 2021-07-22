@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:social_app/shared/cubit/cubit.dart';
+import 'package:social_app/shared/styles/icon_broken.dart';
 
 Widget defaultButton({
   double width = double.infinity,
@@ -31,7 +32,7 @@ Widget defaultButton({
     );
 
 Widget defaultFormField({
-  required TextEditingController controller,
+  TextEditingController? controller,
   required TextInputType type,
   required dynamic onSubmit,
   required dynamic onChange,
@@ -41,6 +42,7 @@ Widget defaultFormField({
   required String label,
   IconData? prefix,
   IconData? suffix,
+  String? initialValue,
   VoidCallback? suffixPressed,
   bool isClickable = true,
 }) =>
@@ -53,6 +55,7 @@ Widget defaultFormField({
       onChanged: onChange,
       onTap: onTap,
       validator: validate,
+      initialValue: initialValue,
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(
@@ -147,3 +150,20 @@ Widget defaultTextButton({
         text.toUpperCase(),
       ),
     );
+
+AppBar defaultAppBar({
+  required BuildContext context,
+  String? title,
+  List<Widget>? actions,
+})=> AppBar(
+  leading: IconButton(
+    onPressed: (){
+      Navigator.pop(context);
+    },
+    icon: Icon(
+      IconBroken.Arrow___Left_2,
+    ),
+  ),
+title: Text("$title"),
+  actions: actions,
+);

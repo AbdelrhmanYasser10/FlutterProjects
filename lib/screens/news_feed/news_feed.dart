@@ -12,7 +12,7 @@ class NewsFeedScreen extends StatelessWidget {
       return BlocConsumer<SocialCubit,SocialStates>(
         listener: (context,states){},
         builder:(context,states) {
-          var userModel = SocialCubit.get(context).model;
+          var userModel = SocialCubit.get(context).userModel;
           return SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
