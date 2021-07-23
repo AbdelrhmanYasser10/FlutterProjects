@@ -88,3 +88,17 @@ class SocialGetPostUsersErrorState extends SocialStates
 
   SocialGetPostUsersErrorState(this.error);
 }
+
+
+class SocialGetMessagesSuccessState extends SocialStates {}
+
+class SocialSendMessageErrorState extends SocialStates
+{
+  final String error;
+
+  SocialSendMessageErrorState(this.error);
+}
+
+class SocialSendMessageSuccessState extends SocialStates {}
+
+
