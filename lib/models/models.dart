@@ -85,3 +85,36 @@ class PostModel
     };
   }
 }
+
+class CommentModel{
+  String? uId;
+  String? comment;
+  String? dateTime;
+  String? postId;
+
+
+  CommentModel({
+    this.uId,
+    this.dateTime,
+    this.comment,
+    this.postId,
+  });
+
+  CommentModel.fromJson(Map<String, dynamic> json)
+  {
+    uId = json['uId'];
+    dateTime = json['dateTime'];
+    comment = json['Comment'];
+    postId = json['postId'];
+  }
+
+  Map<String, dynamic> toMap()
+  {
+    return {
+      'Comment':comment,
+      'uId':uId,
+      'dateTime':dateTime,
+      'postId':postId,
+    };
+  }
+}

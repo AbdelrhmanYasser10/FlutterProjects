@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -278,7 +279,10 @@ class SocialCubit extends Cubit<SocialStates>
 
   List<PostModel>posts = [];
   List<String>postsIds=[];
+  List<CommentModel> comment = [];
   List<int> likes = [];
+  List<int>numberComments=[];
+  List<SocialUserModel>users=[];
 
   void getPosts()
   {
@@ -286,6 +290,12 @@ class SocialCubit extends Cubit<SocialStates>
     {
       value.docs.forEach((element)
       {
+        element.reference.collection('comments').get().then((value){
+          numberComments.add(value.docs.length);
+          value.docs.forEach((element) {
+            comment.add(CommentModel.fromJson(element.data()));
+          });
+        }).catchError((error){});
         element.reference
             .collection('likes')
             .get()
@@ -313,5 +323,45 @@ class SocialCubit extends Cubit<SocialStates>
       }).catchError((error){
         emit(SocialGetPostLikeErrorState(error));
       });
+      emit(SocialInitialState());
+  }
+
+  void addComments(String postId , String comment){
+    FirebaseFirestore.instance.collection('posts').doc(postId).collection('comments').doc(userModel!.uId).set({
+      'Comment':comment,
+      'uId':userModel!.uId,
+      'postId':postId,
+    }).then((value){
+      emit(SocialGetPostCommentSuccessState());
+    }).catchError((error){
+      emit(SocialGetPostCommentErrorState(error));
+    });
+    emit(SocialInitialState());
+  }
+
+  void getUsers(){
+    FirebaseFirestore.instance.collection('users').get().then((value)
+    {
+      value.docs.forEach((element)
+      {
+          users.add(SocialUserModel.fromJason(element.data()));
+      });
+
+      emit(SocialGetPostUsersSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(SocialGetPostUsersErrorState(error.toString()));
+    });
+  }
+
+  SocialUserModel getCurrentUser(String id) {
+    late SocialUserModel user;
+    for(int i = 0 ; i < users.length;i++){
+      if(id == users[i].uId){
+        user = users[i];
+        break;
+      }
+    }
+    return user;
   }
 }

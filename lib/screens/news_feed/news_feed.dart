@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:social_app/layout/social_layout/cubit/cubit.dart';
 import 'package:social_app/layout/social_layout/cubit/states.dart';
+import 'package:social_app/screens/comments_screen/comments_screen.dart';
+import 'package:social_app/shared/components/components.dart';
 import 'package:social_app/shared/styles/colors.dart';
 import 'package:social_app/shared/styles/icon_broken.dart';
 
@@ -286,7 +288,7 @@ class NewsFeedScreen extends StatelessWidget {
                               width: 5.0,
                             ),
                             Text(
-                              '0 comment',
+                              '${SocialCubit.get(context).numberComments[index]} comment',
                               style: Theme
                                   .of(context)
                                   .textTheme
@@ -337,7 +339,10 @@ class NewsFeedScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      CommentScreen.postId = SocialCubit.get(context).postsIds[index];
+                      navigateTo(context, CommentScreen());
+                    },
                   ),
                 ),
                 InkWell(

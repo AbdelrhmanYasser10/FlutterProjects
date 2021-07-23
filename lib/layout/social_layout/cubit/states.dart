@@ -70,3 +70,21 @@ class SocialGetPostLikeErrorState extends SocialStates
 
   SocialGetPostLikeErrorState(this.error);
 }
+
+class SocialGetPostCommentSuccessState extends SocialStates {}
+
+class SocialGetPostCommentErrorState extends SocialStates
+{
+  final String error;
+
+  SocialGetPostCommentErrorState(this.error);
+}
+
+class SocialGetPostUsersSuccessState extends SocialStates {}
+
+class SocialGetPostUsersErrorState extends SocialStates
+{
+  final String error;
+
+  SocialGetPostUsersErrorState(this.error);
+}
