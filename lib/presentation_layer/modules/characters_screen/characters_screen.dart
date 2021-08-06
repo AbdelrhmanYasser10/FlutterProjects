@@ -42,6 +42,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
 
   Widget buildLoadedListWidgets() {
     return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: Container(
         color: backgroundColor,
         child: Column(

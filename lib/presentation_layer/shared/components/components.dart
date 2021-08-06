@@ -1,5 +1,6 @@
 import 'package:breaking_bad/data_layer/models/characters_model/character_model.dart';
 import 'package:breaking_bad/presentation_layer/shared/colors/colors.dart';
+import 'package:breaking_bad/presentation_layer/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class CharacterItem extends StatelessWidget {
@@ -14,7 +15,9 @@ class CharacterItem extends StatelessWidget {
       child: Container(
         width: double.infinity,
         child: InkWell(
-          onTap: (){},
+          onTap: (){
+            Navigator.pushNamed(context, charactersDetailsScreen , arguments: character);
+          },
           child: GridTile(
             child: Hero(
               tag: character.charId!,
@@ -53,4 +56,72 @@ class CharacterItem extends StatelessWidget {
       ),
     );
   }
+}
+
+
+Widget charInfo({
+  required String title,
+  required String value,
+}){
+  return RichText(
+    overflow: TextOverflow.ellipsis,
+    maxLines: 1,
+    text:TextSpan(
+      children: [
+        TextSpan(
+          text: title,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+          ),
+        ),
+        TextSpan(
+          text: value,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16.5,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+Widget divider({
+  required double endIndent,
+}){
+  return Divider(
+    height: 20,
+    endIndent: endIndent,
+    thickness: 2,
+    color: primaryColor,
+  );
+}
+
+Widget buildSliverAppBar({
+  required Character character,
+}) {
+  return SliverAppBar(
+    expandedHeight: 600,
+    pinned: true,
+    stretch: true,
+    backgroundColor: backgroundColor,
+    flexibleSpace: FlexibleSpaceBar(
+      centerTitle: true,
+      title: Text(
+        '${character.nickName}',
+        textAlign: TextAlign.start,
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      background: Hero(
+          tag: character.charId!,
+          child: Image(
+            image: NetworkImage("${character.image}"),
+            fit: BoxFit.cover,
+          )),
+    ),
+  );
 }
