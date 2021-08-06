@@ -28,7 +28,7 @@ class CharacterItem extends StatelessWidget {
                         backgroundImage: NetworkImage("${character.image}"),
                       ),
                     )
-                    : Image.asset('assets/images/placeholder.jpg'),
+                    : Center(child: CircularProgressIndicator(),),
               ),
             ),
             footer: Container(

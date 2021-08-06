@@ -14,9 +14,10 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
-
-
   List<Character> allCharacters = [];
+  late List<Character> searchedAllCharacters;
+  bool isSearching = false;
+  TextEditingController searchController = TextEditingController();
 
   Widget buildBlocWidget() {
     return BlocBuilder<CharactersCubit, CharactersState>(
@@ -63,19 +64,102 @@ class _CharactersScreenState extends State<CharactersScreen> {
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.zero,
-      itemCount: allCharacters.length,
+      itemCount: searchController.text.isEmpty?allCharacters.length:searchedAllCharacters.length,
       itemBuilder: (context, index) {
-        return CharacterItem(
-            character:allCharacters[index]
-        );
+        return CharacterItem(character: searchController.text.isEmpty?allCharacters[index]:searchedAllCharacters[index]);
       },
+    );
+  }
+
+  Widget buildSearch() {
+    return TextFormField(
+      controller: searchController,
+      cursorColor: primaryColor,
+      decoration: InputDecoration(
+        hintText: "Find a character",
+        border: InputBorder.none,
+        hintStyle: TextStyle(
+          color: Colors.white,
+          fontSize: 18.0,
+        ),
+      ),
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18.0,
+      ),
+      onChanged: (value) {
+        addSearchedOrItemToSearchedList(value);
+      },
+    );
+  }
+
+  void addSearchedOrItemToSearchedList(String searchChar) {
+    searchedAllCharacters = allCharacters
+        .where(
+            (character) => character.name!.toLowerCase().startsWith(searchChar))
+        .toList();
+    setState(() {});
+  }
+
+  List<Widget> buildAppBarActions() {
+    if (isSearching) {
+      return [
+        IconButton(
+          onPressed: () {
+            clearSearch();
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.clear,
+            color: Colors.white,
+          ),
+        ),
+      ];
+    } else {
+      return [
+        IconButton(
+            onPressed: startSearch,
+            icon: Icon(
+              Icons.search,
+              color: Colors.white,
+            )),
+      ];
+    }
+  }
+
+  void startSearch(){
+    ModalRoute.of(context)!.addLocalHistoryEntry(LocalHistoryEntry(
+      onRemove: stopSearch,
+    ));
+    setState(() {
+      isSearching = true;
+    });
+  }
+
+  void stopSearch(){
+    clearSearch();
+    setState(() {
+      isSearching = false;
+    });
+  }
+
+  void clearSearch(){
+    setState(() {
+      searchController.clear();
+    });
+  }
+
+  Widget appBarTitle(){
+    return Text(
+      'Characters',
+      style: TextStyle(color: Colors.white, fontSize: 20.0),
     );
   }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    allCharacters = BlocProvider.of<CharactersCubit>(context).getAllCharacters();
+    BlocProvider.of<CharactersCubit>(context).getAllCharacters();
   }
 
   @override
@@ -84,20 +168,14 @@ class _CharactersScreenState extends State<CharactersScreen> {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         elevation: 0.0,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20.0,
-          ),
-          child: Text(
-            'Characters',
-            style: TextStyle(color: Colors.white, fontSize: 20.0),
-          ),
-        ),
+        leading:isSearching?BackButton(
+          color: Colors.white,
+        ):SizedBox(),
+        title: isSearching?buildSearch():appBarTitle(),
+        actions: buildAppBarActions(),
       ),
       backgroundColor: backgroundColor,
       body: buildBlocWidget(),
     );
   }
-
-
 }
