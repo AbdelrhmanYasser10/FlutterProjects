@@ -30,10 +30,10 @@ class ShopLayout extends StatelessWidget {
                     duration: Duration(milliseconds: 900),
                     tabBorderRadius: 5.0,
                     gap: 10,// tab animation duration
-                    activeColor: Colors.white, // selected icon and text color
+                    activeColor: defaultColor, // selected icon and text color
                     color: Colors.blueGrey,
                     iconSize: 24, // tab button icon size
-                    tabBackgroundColor: defaultColor.withOpacity(0.7), // selected tab background color
+                    tabBackgroundColor: defaultColor.withOpacity(0.2), // selected tab background color
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5), // navigation bar padding
                     tabs: [
                       GButton(
