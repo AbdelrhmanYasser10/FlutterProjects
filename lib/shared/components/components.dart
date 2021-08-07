@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_appli/models/boarding_model/boarding_model.dart';
 
 Widget buildBoardingItem({
@@ -37,3 +38,36 @@ Widget buildBoardingItem({
         ],
       ));
 }
+
+
+enum ToastStates{
+ SUCCESS , ERROR , WARNING
+}
+
+Color chooseToastColor({
+  required ToastStates state,
+}){
+  switch(state){
+    case ToastStates.SUCCESS:
+      return Colors.green;
+    case ToastStates.ERROR:
+      return Colors.red;
+    case ToastStates.WARNING:
+      return Colors.yellow;
+  }
+}
+
+void showToast({
+ required String message,
+  required ToastStates state,
+})=>Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 5,
+    backgroundColor: chooseToastColor(
+      state: state,
+    ),
+    textColor: Colors.white,
+    fontSize: 16.0
+);

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_appli/layout/main_layout/main_layout.dart';
 import 'package:shop_appli/modules/log_in_screen/cubit/login_cubit.dart';
 import 'package:shop_appli/modules/log_in_screen/cubit/login_state.dart';
+import 'package:shop_appli/shared/components/components.dart';
+import 'package:shop_appli/shared/network/local/cache_helper.dart';
 
 // ignore: must_be_immutable
 class LogInScreen extends StatefulWidget {
@@ -21,7 +24,21 @@ class _LogInScreenState extends State<LogInScreen> {
     return BlocProvider(
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is LoginSuccessState){
+            if(!state.loginModel.status!){
+              showToast(
+                  message: state.loginModel.message!,
+                  state: ToastStates.ERROR,
+              );
+            }
+            else{
+              CacheHelper.saveData(key: 'token', value: state.loginModel.userData!.token).then((value){
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>ShopLayout()), (route) => false);
+              });
+            }
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             body: SafeArea(

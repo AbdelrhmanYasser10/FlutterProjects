@@ -3,6 +3,7 @@ import 'package:shop_appli/models/boarding_model/boarding_model.dart';
 import 'package:shop_appli/modules/log_in_screen/login_screen.dart';
 import 'package:shop_appli/shared/colors/colors.dart';
 import 'package:shop_appli/shared/components/components.dart';
+import 'package:shop_appli/shared/network/local/cache_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -94,6 +95,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   Spacer(),
                   FloatingActionButton(onPressed: (){
                    if(isLast){
+                     CacheHelper.saveData(
+                         key: 'onBoarding',
+                         value: true
+                     );
                      Navigator.pushAndRemoveUntil(
                        context,
                        MaterialPageRoute(builder: (context)=>LogInScreen()),

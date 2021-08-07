@@ -33,6 +33,9 @@ dependencies:
   shared_preferences: ^2.0.6
   dio: ^4.0.0
   smooth_page_indicator: ^0.3.0-nullsafety.0
+  fluttertoast: ^8.0.8
+  google_nav_bar: ^5.0.5
+  font_awesome_flutter: ^9.1.0
 
 dev_dependencies:
   flutter_test:
