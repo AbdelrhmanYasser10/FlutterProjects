@@ -8,7 +8,7 @@ class LogInScreen extends StatefulWidget {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   bool isVisible = true;
-
+  var formKey = GlobalKey<FormState>();
   LogInScreen({Key? key}) : super(key: key);
 
   @override
@@ -55,94 +55,128 @@ class _LogInScreenState extends State<LogInScreen> {
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'LOGIN',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(fontSize: 36.0),
-                            ),
-                            Text(
-                              'Login and see ower new offers',
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            TextFormField(
-                              controller: widget.emailController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 1.0),
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.email_outlined,
-                                ),
-                                labelText: "Email Address",
+                        child: Form(
+                          key: widget.formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'LOGIN',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(fontSize: 36.0),
                               ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            TextFormField(
-                              obscureText: widget.isVisible,
-                              controller: widget.passwordController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 1.0),
+                              Text(
+                                'Login and see ower new offers',
+                                style: Theme.of(context).textTheme.subtitle1,
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              TextFormField(
+                                controller: widget.emailController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(width: 1.0),
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.email_outlined,
+                                  ),
+                                  labelText: "Email Address",
                                 ),
-                                prefixIcon: Icon(
-                                  Icons.lock_outlined,
-                                ),
-                                labelText: "Password",
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.isVisible = !widget.isVisible;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    widget.isVisible
-                                        ? Icons.visibility_off_outlined
-                                        : Icons.visibility,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "The Email must not be empty";
+                                  } else {
+                                    bool valid = value.contains('@', 0);
+                                    if (!valid) {
+                                      return "This Email is Not Valid";
+                                    }
+                                  }
+                                },
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              TextFormField(
+                                obscureText: widget.isVisible,
+                                controller: widget.passwordController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(width: 1.0),
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.lock_outlined,
+                                  ),
+                                  labelText: "Password",
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        widget.isVisible = !widget.isVisible;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      widget.isVisible
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility,
+                                    ),
                                   ),
                                 ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "The password is too short";
+                                  }
+                                },
                               ),
-                            ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.deepOrange,
+                              SizedBox(
+                                height: 20.0,
                               ),
-                              child: MaterialButton(
-                                onPressed: () {},
-                                child: Text(
-                                  'LOGIN',
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                              Container(
+                                child: state is! LoginLoadingState
+                                    ? Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.deepOrange,
+                                        ),
+                                        child: MaterialButton(
+                                          onPressed: () {
+                                            if (widget.formKey.currentState!
+                                                .validate()) {
+                                              LoginCubit.get(context).userLogin(
+                                                email:
+                                                    widget.emailController.text,
+                                                password: widget
+                                                    .passwordController.text,
+                                              );
+                                            }
+                                          },
+                                          child: Text(
+                                            'LOGIN',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ))
+                                    : Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Don\'t have an account ?',
-                                ),
-                                TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Register',
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Don\'t have an account ?',
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: Text(
+                                      'Register',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
