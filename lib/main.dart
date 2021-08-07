@@ -5,7 +5,7 @@ import 'package:shop_appli/shared/bloc/cubit/app_cubit/app_states/app_states.dar
 import 'package:shop_appli/shared/bloc_observer.dart';
 import 'package:shop_appli/shared/network/local/cache_helper.dart';
 import 'package:shop_appli/shared/themes/themes.dart';
-import 'modules/on_boarding_screen/on_boarding_screen.dart';
+import 'modules/splah_screen/splash_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
             theme: lightTheme,
             darkTheme: darkTheme,
             themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
-            home: OnBoardingScreen(),
+            home: SplashScreen(),
           );
         },
       ),

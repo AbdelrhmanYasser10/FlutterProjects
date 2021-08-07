@@ -87,7 +87,7 @@ ThemeData lightTheme = ThemeData(
   textTheme: TextTheme(
     headline1: TextStyle(
         color: Colors.black,
-        fontSize: 36.0,
+        fontSize: 54.0,
         fontWeight: FontWeight.bold,
         fontFamily: 'Dancing'
     ),
