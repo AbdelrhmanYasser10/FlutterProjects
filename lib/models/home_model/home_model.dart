@@ -11,15 +11,17 @@ class HomeModel{
 }
 
 class HomeData{
-  List<BannerModel>? banners = [];
-  List<dynamic>? products = [];
+  List<BannerModel> banners = [];
+  List<ProductModel> products = [];
   HomeData.fromJson(Map<String,dynamic>json){
-    json['banners'].forEach((element){
-      banners!.add(element);
+    json['banners'].forEach((element)
+    {
+      banners.add(BannerModel.fromJson(element));
     });
 
-    json['products'].forEach((element){
-      products!.add(element);
+    json['products'].forEach((element)
+    {
+      products.add(ProductModel.fromJson(element));
     });
   }
 }
@@ -38,18 +40,18 @@ class ProductModel{
   dynamic price;
   dynamic oldPrice;
   dynamic discount;
-  String? image;
-  String? name;
-  bool? favourite;
-  bool? inCart;
+  late String image;
+  late String name;
+  late bool favourite;
+  late bool inCart;
   ProductModel.fromJson(Map<String,dynamic>json){
-    this.id = json['id'];
-    this.price = json['price'];
-    this.oldPrice = json['old_price'];
-    this.discount = json['discount'];
-    this.image = json['image'];
-    this.name = json['name'];
-    this.favourite = json['in_favourite'];
-    this.inCart = json['in_cart'];
+    id = json['id'];
+    price = json['price'];
+    oldPrice = json['old_price'];
+    discount = json['discount'];
+    image = json['image'];
+    name = json['name'];
+    favourite = json['in_favorites'];
+    inCart = json['in_cart'];
   }
 }
