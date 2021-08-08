@@ -4,6 +4,7 @@ import 'package:shop_appli/layout/main_layout/cubit/shop_cubit.dart';
 import 'package:shop_appli/layout/main_layout/cubit/shop_states.dart';
 import 'package:shop_appli/models/home_model/home_model.dart';
 import 'package:shop_appli/shared/colors/colors.dart';
+import 'package:shop_appli/shared/components/components.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({Key? key}) : super(key: key);
@@ -11,7 +12,17 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+
+        if (state is ShopChangeFavouriteSuccessState){
+          if(!state.changeFavouriteModel.status!){
+            showToast(
+                message:state.changeFavouriteModel.message! ,
+                state: ToastStates.ERROR,
+            );
+          }
+        }
+      },
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(20.0),
@@ -122,11 +133,15 @@ class ProductScreen extends StatelessWidget {
                         ),
                       Spacer(),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          ShopCubit.get(context).changeFavourites(
+                            productId:model.id!,
+                          );
+                        },
                         icon: Icon(
                           Icons.favorite,
                           size: 16.0,
-                          color: Colors.grey,
+                          color: ShopCubit.get(context).favourite[model.id] == true ? Colors.red:Colors.blueGrey,
                         ),
                       ),
                     ],

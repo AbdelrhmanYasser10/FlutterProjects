@@ -40,10 +40,10 @@ class ProductModel{
   dynamic price;
   dynamic oldPrice;
   dynamic discount;
-  late String image;
-  late String name;
-  late bool favourite;
-  late bool inCart;
+  late dynamic image;
+  late dynamic name;
+  late dynamic favourite;
+  late dynamic inCart;
   ProductModel.fromJson(Map<String,dynamic>json){
     id = json['id'];
     price = json['price'];

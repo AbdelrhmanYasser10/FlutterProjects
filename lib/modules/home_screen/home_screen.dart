@@ -188,7 +188,17 @@ class HomeScreen extends StatelessWidget {
                   ),
                 );
         },
-        listener: (context, state) {});
+        listener: (context, state) {
+          if (state is ShopChangeFavouriteSuccessState){
+            if(!state.changeFavouriteModel.status!){
+              showToast(
+                message:state.changeFavouriteModel.message! ,
+                state: ToastStates.ERROR,
+              );
+            }
+          }
+
+        });
   }
 
   Widget buildCard(
@@ -336,10 +346,14 @@ class HomeScreen extends StatelessWidget {
                   horizontal: 8.0
               ),
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    ShopCubit.get(context).changeFavourites(
+                      productId:productModel.id!,
+                    );
+                  },
                   icon: Icon(
                     Icons.favorite,
-                    color: Colors.grey,
+                    color: ShopCubit.get(context).favourite[productModel.id] == true ? Colors.red:Colors.blueGrey,
                   )
               ),
             ),
