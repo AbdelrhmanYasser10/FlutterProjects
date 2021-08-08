@@ -146,7 +146,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Spacer(),
                             TextButton(
-                              onPressed: (){},
+                              onPressed: (){
+                                ShopCubit.get(context).changeBottomScreens(index: 1);
+                              },
                               child: Text(
                                 'SEE ALL',
                                 style: TextStyle(

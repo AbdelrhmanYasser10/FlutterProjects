@@ -25,6 +25,7 @@ class ShopLayout extends StatelessWidget {
                 left: 10.0,
             ),
             child: GNav(
+                    selectedIndex: ShopCubit.get(context).currentIndex,
                     rippleColor: defaultColor, // tab button ripple color when pressed
                     hoverColor: defaultColor, // tab button hover color
                     duration: Duration(milliseconds: 900),
