@@ -75,7 +75,7 @@ class ProductScreen extends StatelessWidget {
                       horizontal: 5.0,
                     ),
                     child: Text(
-                      'DISCOUNT',
+                      '${model.discount}%',
                       style: TextStyle(
                         fontSize: 8.0,
                         color: Colors.white,

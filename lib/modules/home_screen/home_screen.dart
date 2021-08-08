@@ -7,6 +7,7 @@ import 'package:shop_appli/layout/main_layout/cubit/shop_cubit.dart';
 import 'package:shop_appli/layout/main_layout/cubit/shop_states.dart';
 import 'package:shop_appli/models/categories_model/categories_model.dart';
 import 'package:shop_appli/models/home_model/home_model.dart';
+import 'package:shop_appli/modules/categories_screen/categories_screen.dart';
 import 'package:shop_appli/shared/colors/colors.dart';
 import 'package:shop_appli/shared/components/components.dart';
 
@@ -106,7 +107,13 @@ class HomeScreen extends StatelessWidget {
                             ),
                             Spacer(),
                             TextButton(
-                                onPressed: (){},
+                                onPressed: (){
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context)=>CategoriesScreen())
+                                  );
+                                },
                                 child: Text(
                                   'SEE ALL',
                                   style: TextStyle(
@@ -132,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                                   ),
                             scrollDirection: Axis.horizontal,
                             physics: BouncingScrollPhysics(),
-                            itemCount: ShopCubit.get(context).categoriesModel!.data!.data.length,
+                            itemCount: 9,
                           ),
                         ),
                         SizedBox(
