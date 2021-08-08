@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:shop_appli/models/boarding_model/boarding_model.dart';
 
 Widget buildBoardingItem({
@@ -71,3 +73,84 @@ void showToast({
     textColor: Colors.white,
     fontSize: 16.0
 );
+
+
+// ignore: non_constant_identifier_names
+Widget? CategoryIcon({
+  String? name,
+}){
+
+  switch(name){
+    case 'Best Offers':
+      return Icon(
+        Icons.local_offer,
+        color: HexColor('#8b847a'),
+      );
+    case 'Electronics':
+      return Icon(
+        Icons.wb_incandescent,
+        color: HexColor('#8b847a'),
+      );
+    case 'Prevent Corona':
+      return Icon(
+        Icons.health_and_safety,
+        color: HexColor('#8b847a'),
+      );
+    case 'Super Market':
+      return Icon(
+        Icons.shopping_bag,
+        color: HexColor('#8b847a'),
+      );
+    case 'Toys':
+      return Icon(
+        Icons.toys,
+        color: HexColor('#8b847a'),
+      );
+
+    case 'Sports':
+      return Icon(
+        Icons.sports,
+        color: HexColor('#8b847a'),
+      );
+
+    case 'Fresh food':
+      return Icon(
+        Icons.fastfood_rounded,
+        color: HexColor('#8b847a'),
+      );
+
+    case 'Mobiles':
+      return Icon(
+        Icons.mobile_screen_share,
+        color: HexColor('#8b847a'),
+      );
+    case 'Moms & Babies':
+      return Icon(
+        Icons.baby_changing_station,
+        color: HexColor('#8b847a'),
+      );
+
+    case 'Computers':
+      return Icon(
+        Icons.computer,
+        color: HexColor('#8b847a'),
+      );
+
+    case 'Accessories':
+      return Icon(
+        Icons.watch,
+        color: HexColor('#8b847a'),
+      );
+    case 'Kitchen':
+      return Icon(
+        Icons.kitchen,
+        color: HexColor('#8b847a'),
+      );
+    case 'Appliances':
+      return FaIcon(
+        FontAwesomeIcons.apple,
+        color: HexColor('#8b847a'),
+      );
+  }
+
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_appli/layout/main_layout/cubit/shop_states.dart';
+import 'package:shop_appli/models/categories_model/categories_model.dart';
 import 'package:shop_appli/models/home_model/home_model.dart';
 import 'package:shop_appli/modules/favourite_screen/favourite_screen.dart';
 import 'package:shop_appli/modules/home_screen/home_screen.dart';
@@ -32,6 +33,7 @@ class ShopCubit extends Cubit<ShopStates> {
   ];
 
   HomeModel? homeModel;
+  CategoriesModel? categoriesModel;
 
   void changeBottomScreens({
   required int index,
@@ -51,6 +53,20 @@ class ShopCubit extends Cubit<ShopStates> {
     }).catchError((error){
       print(error.toString());
       emit(ShopErrorHomeDataState());
+    });
+  }
+
+  void getCategoriesData(){
+    emit(ShopLoadingCategoriesDataState());
+    DioHelper.getData(
+      url: CATEGORIES,
+      token: token!,
+    ).then((value){
+      categoriesModel = CategoriesModel.fromJson(value.data);
+      emit(ShopSuccessCategoriesDataState());
+    }).catchError((error){
+      print(error.toString());
+      emit(ShopErrorCategoriesDataState());
     });
   }
 }

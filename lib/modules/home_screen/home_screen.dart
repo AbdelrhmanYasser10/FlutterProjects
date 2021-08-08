@@ -2,9 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:shop_appli/layout/main_layout/cubit/shop_cubit.dart';
 import 'package:shop_appli/layout/main_layout/cubit/shop_states.dart';
+import 'package:shop_appli/models/categories_model/categories_model.dart';
 import 'package:shop_appli/models/home_model/home_model.dart';
+import 'package:shop_appli/shared/colors/colors.dart';
+import 'package:shop_appli/shared/components/components.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
@@ -36,7 +40,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
         builder: (context, state) {
-          return ShopCubit.get(context).homeModel == null
+          return ShopCubit.get(context).homeModel == null || ShopCubit.get(context).categoriesModel == null
               ? Center(
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
@@ -94,9 +98,64 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(
                           height: 20.0,
                         ),
-                        Text(
-                          'Top Products',
-                          style: Theme.of(context).textTheme.bodyText1,
+                        Row(
+                          children: [
+                            Text(
+                              'Top Categories',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            Spacer(),
+                            TextButton(
+                                onPressed: (){},
+                                child: Text(
+                                  'SEE ALL',
+                                  style: TextStyle(
+                                    color: defaultColor,
+                                    fontSize: 12.0
+                                  ),
+                                ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 50.0,
+                          child: ListView.separated
+                            (
+                              separatorBuilder: (context,index)=>SizedBox(
+                                width: 5.0,
+                              ),
+                              itemBuilder:
+                                  (context,index)=>buildTopCategories(
+                                      context: context,
+                                      categoriesModel: ShopCubit.get(context).categoriesModel!,
+                                      index: index
+                                  ),
+                            scrollDirection: Axis.horizontal,
+                            physics: BouncingScrollPhysics(),
+                            itemCount: ShopCubit.get(context).categoriesModel!.data!.data.length,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Top Products',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            Spacer(),
+                            TextButton(
+                              onPressed: (){},
+                              child: Text(
+                                'SEE ALL',
+                                style: TextStyle(
+                                    color: defaultColor,
+                                    fontSize: 12.0
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 250.0,
@@ -114,7 +173,7 @@ class HomeScreen extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             physics: BouncingScrollPhysics(),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -234,33 +293,91 @@ class HomeScreen extends StatelessWidget {
                         .subtitle1!
                         .copyWith(color: Colors.blueGrey),
                   ),
-                  Text(
-                    '${productModel.price} \$',
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(color: Colors.blueGrey),
+                  RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '${productModel.price}\$  ',
+                            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: Colors.blueGrey
+                            ),
+                          ),
+                          productModel.discount==0?TextSpan(
+                            text: '',
+                          ):TextSpan(
+                            text: '${productModel.oldPrice}\$',
+                            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: Colors.blueGrey,
+                              decoration: TextDecoration.lineThrough,
+                              fontSize: 10.0
+
+                            ),
+                          ),
+                        ],
+                    )
                   ),
                 ],
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 8.0
+              ),
+              child: IconButton(
                   onPressed: () {},
                   icon: Icon(
                     Icons.favorite,
                     color: Colors.grey,
                   )
               ),
-            ],
+            ),
+          ),
+          Container(
+            child: productModel.discount!=0?Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+              ),
+              child: Container(
+                decoration:BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 5.0,
+                  ),
+                  child: Text(
+                    '${productModel.discount}%',
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ):Container(),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildTopCategories({
+  required context,
+    required CategoriesModel categoriesModel,
+    required int index,
+}){
+    return Container(
+      decoration: BoxDecoration(
+        color: HexColor('#F3F3F3'),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: CategoryIcon(name: categoriesModel.data!.data[index].name),
       ),
     );
   }
