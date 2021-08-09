@@ -84,39 +84,21 @@ class ShopLayout extends StatelessWidget {
                   ),
             ),
           ),
-          /*drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              child: Row(
+          body: ShopCubit.get(context).homeModel == null || ShopCubit.get(context).categoriesModel == null?
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
+                  LinearProgressIndicator(),
+                  Text(
+                    'Loading...'
+                  ),
                 ],
               ),
             ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),*/
-          body: cubit.screens[cubit.currentIndex],
+          ):cubit.screens[cubit.currentIndex],
         );
       },
     );

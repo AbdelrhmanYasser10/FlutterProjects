@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     bool onBoarding = CacheHelper.getData(key: 'onBoarding') == null?false:CacheHelper.getData(key: 'onBoarding');
     String? login = CacheHelper.getData(key: 'token');
     await Future.delayed(Duration(milliseconds: 6000),(){});
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>onBoarding?login==null?LogInScreen():ShopLayout():OnBoardingScreen()), (route) => false);
+       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>onBoarding?login==null?LogInScreen():ShopLayout():OnBoardingScreen()), (route) => false);
   }
 
   @override
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
           height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-            gradient:LinearGradient(
+            gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
@@ -46,7 +46,11 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Center(
             child: Text(
               'Salla',
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headline1!
+                  .copyWith(
                 color: Colors.white,
                 fontSize: 80.0,
               ),

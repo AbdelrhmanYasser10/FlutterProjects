@@ -26,6 +26,14 @@ class ShopSuccessFavouritesDataState extends ShopStates{}
 class ShopErrorFavouritesDataState extends ShopStates{
 
 }
+
+class ShopSuccessUserDataState extends ShopStates{}
+
+class ShopErrorUserDataState extends ShopStates{
+
+}
+
+
 class ShopChangeFavouriteState extends ShopStates{
 
 }

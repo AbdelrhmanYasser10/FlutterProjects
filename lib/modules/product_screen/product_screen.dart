@@ -24,7 +24,7 @@ class ProductScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return Padding(
+        return ShopCubit.get(context).categoriesModel!=null?Padding(
           padding: const EdgeInsets.all(20.0),
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
@@ -59,6 +59,17 @@ class ProductScreen extends StatelessWidget {
               ],
             ),
           ),
+        ):
+        Center(
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LinearProgressIndicator(),
+              Text(
+                'Loading...',
+              ),
+            ],
+          )
         );
       },
     );
