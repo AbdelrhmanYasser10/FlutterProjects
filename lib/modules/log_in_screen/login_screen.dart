@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_appli/layout/main_layout/main_layout.dart';
 import 'package:shop_appli/modules/log_in_screen/cubit/login_cubit.dart';
 import 'package:shop_appli/modules/log_in_screen/cubit/login_state.dart';
+import 'package:shop_appli/modules/register_screen/register_screen.dart';
 import 'package:shop_appli/shared/components/components.dart';
 import 'package:shop_appli/shared/constants/constants.dart';
 import 'package:shop_appli/shared/network/local/cache_helper.dart';
@@ -140,7 +141,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                       });
                                     },
                                     icon: Icon(
-                                      widget.isVisible
+                                      !widget.isVisible
                                           ? Icons.visibility_off_outlined
                                           : Icons.visibility,
                                     ),
@@ -191,7 +192,13 @@ class _LogInScreenState extends State<LogInScreen> {
                                     'Don\'t have an account ?',
                                   ),
                                   TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RegisterScreen()));
+                                    },
                                     child: Text(
                                       'Register',
                                     ),
