@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shop_appli/layout/main_layout/main_layout.dart';
 import 'package:shop_appli/modules/log_in_screen/login_screen.dart';
 import 'package:shop_appli/modules/on_boarding_screen/on_boarding_screen.dart';
@@ -28,31 +29,42 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.deepOrange,
-                Colors.red
-              ],
+    return Container(
+      child: Scaffold(
+        appBar:PreferredSize(
+          preferredSize: Size.fromHeight(0.0), // here the desired height
+          child: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.deepOrangeAccent,
+              statusBarIconBrightness: Brightness.light,
             ),
           ),
-          child: Center(
-            child: Text(
-              'Salla',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline1!
-                  .copyWith(
-                color: Colors.white,
-                fontSize: 80.0,
+        ),
+        body: SafeArea(
+          child: Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.deepOrange,
+                  Colors.red
+                ],
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'Salla',
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .headline1!
+                    .copyWith(
+                  color: Colors.white,
+                  fontSize: 80.0,
+                ),
               ),
             ),
           ),

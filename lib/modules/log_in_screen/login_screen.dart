@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_appli/layout/main_layout/main_layout.dart';
 import 'package:shop_appli/modules/log_in_screen/cubit/login_cubit.dart';
@@ -48,6 +49,15 @@ class _LogInScreenState extends State<LogInScreen> {
         },
         builder: (context, state) {
           return Scaffold(
+            appBar:PreferredSize(
+              preferredSize: Size.fromHeight(0.0), // here the desired height
+              child: AppBar(
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: Colors.deepOrangeAccent,
+                  statusBarIconBrightness: Brightness.light,
+                ),
+              ),
+            ),
             body: SafeArea(
               child: Column(
                 children: [

@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Hello Abdelrahman',
+                          'Hello ${ShopCubit.get(context).userModel!.data!.name}',
                           style: Theme.of(context)
                               .textTheme
                               .bodyText1!

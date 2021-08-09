@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_appli/modules/register_screen/cubit/register_cubit.dart';
 import 'package:shop_appli/modules/register_screen/cubit/register_states.dart';
@@ -35,6 +36,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
             colors: [defaultColor, Colors.red],
           )),
           child: Scaffold(
+              appBar:PreferredSize(
+                preferredSize: Size.fromHeight(0.0), // here the desired height
+                child: AppBar(
+                  systemOverlayStyle: SystemUiOverlayStyle(
+                    statusBarColor: Colors.deepOrangeAccent,
+                    statusBarIconBrightness: Brightness.light,
+                  ),
+                ),
+              ),
               backgroundColor: Colors.transparent,
               body: SafeArea(
                 child: Padding(

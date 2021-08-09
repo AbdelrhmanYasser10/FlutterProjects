@@ -12,7 +12,7 @@ class SettingsScreen extends StatelessWidget {
   TextEditingController? nameController;
   TextEditingController? phoneController;
   TextEditingController? emailController;
-
+  var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
@@ -37,149 +37,195 @@ class SettingsScreen extends StatelessWidget {
                   ),
                 ),
               )
-            : Column(
-                children: [
-                  Center(
-                    child: CircleAvatar(
-                      backgroundColor: defaultColor,
-                      radius: 64,
-                      child: CircleAvatar(
-                        radius: 60,
-                        backgroundImage: NetworkImage(
-                            '${ShopCubit.get(context).userModel!.data!.image!}'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  Row(
+            : Form(
+              key: formKey,
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
                     children: [
-                      Expanded(
-                          child: InkWell(
-                            onTap:(){},
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Credits',
-                                ),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-                                Text(
-                                  '${ShopCubit.get(context).userModel!.data!.credits!}'
-                                ),
-                              ],
-                            ),
-                          ),
+                      if(state is ShopLoadingUpdateUserState)
+                        LinearProgressIndicator(),
+                      SizedBox(
+                        height: 5.0,
                       ),
-                      Expanded(
-                          child: InkWell(
-                            onTap: (){},
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Points',
-                                ),
-                                SizedBox(
-                                  height: 5.0,
-                                ),
-                                Text(
-                                  '${ShopCubit.get(context).userModel!.data!.points!}'
-                                ),
-                              ],
-                            ),
+                      Center(
+                        child: CircleAvatar(
+                          backgroundColor: defaultColor,
+                          radius: 64,
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundImage: NetworkImage(
+                                '${ShopCubit.get(context).userModel!.data!.image!}'),
                           ),
+                        ),
                       ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: Column(
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Row(
                         children: [
-                          TextFormField(
-                            controller: emailController,
-                            decoration: InputDecoration(
-                              labelText: "Email",
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1.0,
-                                  color: Colors.blueGrey,
+                          Expanded(
+                              child: InkWell(
+                                onTap:(){},
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Credits',
+                                    ),
+                                    SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(
+                                      '${ShopCubit.get(context).userModel!.data!.credits!}'
+                                    ),
+                                  ],
                                 ),
                               ),
-                              prefixIcon: Icon(
-                                Icons.email_outlined,
-                                color: Colors.blueGrey,
-                              ),
-                            ),
                           ),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          TextFormField(
-                            controller: nameController,
-                            decoration: InputDecoration(
-                              labelText: "User Name",
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1.0,
-                                  color: Colors.blueGrey,
+                          Expanded(
+                              child: InkWell(
+                                onTap: (){},
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Points',
+                                    ),
+                                    SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(
+                                      '${ShopCubit.get(context).userModel!.data!.points!}'
+                                    ),
+                                  ],
                                 ),
                               ),
-                              prefixIcon: Icon(
-                                Icons.person,
-                                color: Colors.blueGrey,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          TextFormField(
-                            controller: phoneController,
-                            decoration: InputDecoration(
-                              labelText: "Phone",
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1.0,
-                                  color: Colors.blueGrey,
-                                ),
-                              ),
-                              prefixIcon: Icon(
-                                Icons.phone,
-                                color: Colors.blueGrey,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30.0,
-                          ),
-                          Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.deepOrange
-                            ),
-                            child: MaterialButton(
-                              onPressed: () {
-                                signOut(context);
-                              },
-                              child: Text(
-                                'LOGOUT',
-                                style: TextStyle(
-                                  color: Colors.white
-                                ),
-                              ),
-                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                  labelText: "Email",
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1.0,
+                                      color: Colors.blueGrey,
+                                    ),
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.email_outlined,
+                                    color: Colors.blueGrey,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
+                              TextFormField(
+                                controller: nameController,
+                                decoration: InputDecoration(
+                                  labelText: "User Name",
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1.0,
+                                      color: Colors.blueGrey,
+                                    ),
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.person,
+                                    color: Colors.blueGrey,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
+                              TextFormField(
+                                controller: phoneController,
+                                decoration: InputDecoration(
+                                  labelText: "Phone",
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1.0,
+                                      color: Colors.blueGrey,
+                                    ),
+                                  ),
+                                  prefixIcon: Icon(
+                                    Icons.phone,
+                                    color: Colors.blueGrey,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30.0,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Colors.deepOrange
+                                      ),
+                                      child: MaterialButton(
+                                        onPressed: () {
+                                          signOut(context);
+                                        },
+                                        child: Text(
+                                          'LOGOUT',
+                                          style: TextStyle(
+                                            color: Colors.white
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Colors.deepOrange
+                                      ),
+                                      child: MaterialButton(
+                                        onPressed: () {
+                                          if(formKey.currentState!.validate())
+                                          {
+                                            ShopCubit.get(context).updateUserData(
+                                              name: nameController!.text,
+                                              phone: phoneController!.text,
+                                              email: emailController!.text,
+                                            );
+                                          }
+                                        },
+                                        child: Text(
+                                          'UPDATE',
+                                          style: TextStyle(
+                                            color: Colors.white
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
 
-                ],
-              );
+                    ],
+                  ),
+              ),
+            );
       },
     );
   }

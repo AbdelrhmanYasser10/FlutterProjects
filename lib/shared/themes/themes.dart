@@ -62,8 +62,8 @@ ThemeData lightTheme = ThemeData(
     titleSpacing: 20.0,
     backwardsCompatibility: false,
     systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: defaultColor,
-      statusBarIconBrightness: Brightness.light,
+      statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
     ),
     backgroundColor: Colors.white,
     elevation: 0.0,
