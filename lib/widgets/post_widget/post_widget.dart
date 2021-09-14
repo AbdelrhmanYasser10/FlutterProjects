@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:facbook_app/models/post_model/post_model.dart';
+import 'package:facbook_app/screens/feed_screen/cubit/feed_cubit.dart';
 import 'package:facbook_app/shared/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mdi/mdi.dart';
 
 // ignore: must_be_immutable
@@ -72,38 +74,42 @@ class PostWidget extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0
-                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Row(
                                   children: [
                                     IconButton(
-                                      onPressed: () => buttonCarouselController.previousPage(
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.linear),
-                                      icon: Container(
-                                        width: 40,
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white
-                                        ),
-                                          child: Icon(getOS()!='ios'?Icons.arrow_back:Icons.arrow_back_ios)
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    IconButton(
-                                      onPressed: () => buttonCarouselController.nextPage(
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.linear),
+                                      onPressed: () =>
+                                          buttonCarouselController.previousPage(
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              curve: Curves.linear),
                                       icon: Container(
                                           width: 40,
                                           height: 40,
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
-                                              color: Colors.white
-                                          ),
-                                          child: Icon(getOS()!='ios'?Icons.arrow_forward:Icons.arrow_forward_ios)),
+                                              color: Colors.white),
+                                          child: Icon(getOS() != 'ios'
+                                              ? Icons.arrow_back
+                                              : Icons.arrow_back_ios)),
+                                    ),
+                                    Spacer(),
+                                    IconButton(
+                                      onPressed: () =>
+                                          buttonCarouselController.nextPage(
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              curve: Curves.linear),
+                                      icon: Container(
+                                          width: 40,
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white),
+                                          child: Icon(getOS() != 'ios'
+                                              ? Icons.arrow_forward
+                                              : Icons.arrow_forward_ios)),
                                     ),
                                   ],
                                 ),
@@ -213,14 +219,26 @@ Widget postStats({required PostModel post}) => Column(
         const Divider(),
         Row(
           children: [
-            postButton(
-              icon: Icon(
-                Mdi.thumbUpOutline,
-                color: Colors.grey[600],
-                size: 20.0,
+            BlocProvider(
+              create: (context) => FeedCubit(),
+              child: BlocConsumer<FeedCubit, FeedState>(
+                listener: (context, state) {
+                },
+                builder: (context, state) {
+                  return postButton(
+                    icon: Icon(
+                      Mdi.thumbUpOutline,
+                      color: post.isLiked ? Colors.blue : Colors.grey[600],
+                      size: 20.0,
+                    ),
+                    label: 'Like',
+                    onTap: () {
+                      FeedCubit.get(context).changeLikeOnPost(postModel: post);
+                    },
+                    isLiked: post.isLiked,
+                  );
+                },
               ),
-              label: 'Like',
-              onTap: () => print('Like'),
             ),
             postButton(
               icon: Icon(
@@ -249,6 +267,7 @@ Widget postButton({
   required Icon icon,
   required String label,
   required VoidCallback onTap,
+  bool? isLiked,
 }) =>
     Expanded(
       child: Material(
@@ -263,7 +282,12 @@ Widget postButton({
               children: [
                 icon,
                 const SizedBox(width: 4.0),
-                Text(label),
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: isLiked == true ? Colors.blue : Colors.grey[800],
+                  ),
+                ),
               ],
             ),
           ),

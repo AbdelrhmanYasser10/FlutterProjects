@@ -23,6 +23,7 @@ class FeedCubit extends Cubit<FeedState> {
       likes: 1202,
       comments: 184,
       shares: 96,
+      isLiked: false,
     ),
     PostModel(
       user: users[5],
@@ -33,6 +34,7 @@ class FeedCubit extends Cubit<FeedState> {
       likes: 683,
       comments: 79,
       shares: 18,
+      isLiked: false,
     ),
     PostModel(
       user: users[4],
@@ -43,6 +45,7 @@ class FeedCubit extends Cubit<FeedState> {
       likes: 894,
       comments: 201,
       shares: 27,
+      isLiked: false,
     ),
     PostModel(
       user: users[3],
@@ -56,6 +59,7 @@ class FeedCubit extends Cubit<FeedState> {
       likes: 722,
       comments: 183,
       shares: 42,
+      isLiked: false,
     ),
     PostModel(
       user: users[0],
@@ -66,6 +70,7 @@ class FeedCubit extends Cubit<FeedState> {
       likes: 482,
       comments: 37,
       shares: 9,
+      isLiked: false,
     ),
   ];
   void loadPosts() async{
@@ -85,5 +90,12 @@ class FeedCubit extends Cubit<FeedState> {
     await Future.delayed(Duration(milliseconds: 2000),(){
       emit(FeedLoadedSuccessfully());
     });
+  }
+
+  void changeLikeOnPost({
+  required PostModel postModel,
+}){
+    postModel.isLiked = !postModel.isLiked;
+    emit(ChangeLikeOnPostState());
   }
 }

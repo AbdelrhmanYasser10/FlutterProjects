@@ -8,5 +8,6 @@ class FeedInitial extends FeedState {}
 class FeedLoadPosts extends FeedState {}
 
 class FeedLoadedSuccessfully extends FeedState {}
+class ChangeLikeOnPostState extends FeedState {}
 
 

@@ -8,6 +8,7 @@ class PostModel{
   int likes;
   int comments;
   int shares;
+  bool isLiked;
 
   PostModel({
     required this.user,
@@ -17,5 +18,6 @@ class PostModel{
     required this.likes,
     required this.comments,
     required this.shares,
+    required this.isLiked,
   });
 }
